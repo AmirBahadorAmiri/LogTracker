@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داشبورد LogTracker</title>
+    <title>داشبورد LogStream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
 <body>
 <div class="container">
     <header>
-        <h1>سلام <?= escape($_SESSION['username']) ?>!</h1>
+        <h2>سلام <?= escape($_SESSION['username']) ?>!</h2>
         <div class="nav">
             <a href="profile.php">پروفایل</a>
             <a href="logout.php">خروج</a>
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
     </header>
 
     <section class="add-app">
-        <h2>افزودن اپلیکیشن جدید</h2>
+        <h3>افزودن اپلیکیشن جدید</h3>
         <form method="post">
             <input type="text" name="app_name" placeholder="نام اپلیکیشن" required>
             <button type="submit" name="add_app">ایجاد</button>
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
     </section>
 
     <section class="app-list">
-        <h2>اپلیکیشن‌های من</h2>
+        <h3>اپلیکیشن‌های من</h3>
         <?php if (empty($apps)): ?>
             <p>هیچ اپلیکیشنی ندارید.</p>
         <?php else: ?>

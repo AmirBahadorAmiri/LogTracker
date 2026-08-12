@@ -72,14 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LogTracker - ورود / ثبت‌نام</title>
+    <title>LogStream - ورود / ثبت‌نام</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="container">
-    <h1><i class="fas fa-chart-line" style="color:#3b82f6;"></i> LogTracker</h1>
+    <h2>لاگ استریم</h2>
     <?php if ($error): ?>
         <div class="alert error"><?= escape($error) ?></div>
     <?php endif; ?>
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     <div class="forms">
         <!-- فرم ورود -->
         <div class="form-box">
-            <h2><i class="fas fa-sign-in-alt"></i> ورود</h2>
+            <h3><i class="fas fa-sign-in-alt"></i> ورود</h3>
             <form method="post" onsubmit="document.getElementById('login_captcha').value = document.getElementById('captcha_global').value;">
                 <input type="text" name="username" placeholder="نام کاربری" required>
                 <input type="password" name="password" placeholder="رمز عبور" required>
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
         <!-- فرم ثبت‌نام -->
         <div class="form-box">
-            <h2><i class="fas fa-user-plus"></i> ثبت‌نام</h2>
+            <h3><i class="fas fa-user-plus"></i> ثبت‌نام</h3>
             <form method="post" onsubmit="document.getElementById('register_captcha').value = document.getElementById('captcha_global').value;">
                 <input type="text" name="username" placeholder="نام کاربری" required>
                 <input type="password" name="password" placeholder="رمز عبور (حداقل ۶ کاراکتر)" required>

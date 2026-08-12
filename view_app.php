@@ -39,7 +39,7 @@ if (isset($_GET['delete_log'])) {
 // دریافت پارامترهای فیلتر
 $tag = $_GET['tag'] ?? '';
 $message = $_GET['message'] ?? '';
-$device = $_GET['device_id'] ?? '';
+$client = $_GET['client_identifier'] ?? '';
 $log_uuid = $_GET['log_uuid'] ?? '';
 $from = $_GET['from'] ?? '';
 $to = $_GET['to'] ?? '';
@@ -59,9 +59,9 @@ if ($message) {
     $sql .= " AND message LIKE ?";
     $params[] = "%$message%";
 }
-if ($device) {
-    $sql .= " AND device_id = ?";
-    $params[] = $device;
+if ($client) {
+    $sql .= " AND client_identifier = ?";
+    $params[] = $client;
 }
 if ($log_uuid) {
     $sql .= " AND log_uuid = ?";
@@ -110,7 +110,7 @@ $totalPages = ceil($total / $perPage);
 <body>
 <div class="container">
     <header>
-        <h1>لاگ‌های اپ: <?= escape($app['app_name']) ?></h1>
+        <h2>لاگ‌های اپ: <?= escape($app['app_name']) ?></h2>
         <div class="nav">
             <a href="dashboard.php"><i class="fas fa-arrow-right"></i> بازگشت به داشبورد</a>
         </div>
@@ -122,7 +122,7 @@ $totalPages = ceil($total / $perPage);
             <input type="hidden" name="app_uuid" value="<?= escape($app_uuid) ?>">
             <input type="text" name="tag" placeholder="تگ" value="<?= escape($tag) ?>">
             <input type="text" name="message" placeholder="متن لاگ" value="<?= escape($message) ?>">
-            <input type="text" name="device_id" placeholder="شناسه دستگاه" value="<?= escape($device) ?>">
+            <input type="text" name="client_identifier" placeholder="شناسه کلاینت" value="<?= escape($client) ?>">
             <input type="text" name="log_uuid" placeholder="UUID لاگ" value="<?= escape($log_uuid) ?>">
             <input type="date" name="from" value="<?= escape($from) ?>">
             <input type="date" name="to" value="<?= escape($to) ?>">
@@ -140,7 +140,7 @@ $totalPages = ceil($total / $perPage);
                 <thead>
                 <tr>
                     <th>UUID لاگ</th>
-                    <th>دستگاه</th>
+                    <th>کلاینت</th>
                     <th>تگ</th>
                     <th>پیام</th>
                     <th>IP</th>
@@ -152,7 +152,7 @@ $totalPages = ceil($total / $perPage);
                 <?php foreach ($logs as $log): ?>
                     <tr>
                         <td><?= escape($log['log_uuid']) ?></td>
-                        <td><?= escape($log['device_id']) ?></td>
+                        <td><?= escape($log['client_identifier']) ?></td>
                         <td><?= escape($log['tag']) ?></td>
                         <td><?= escape($log['message']) ?></td>
                         <td><?= escape($log['ip_address']) ?></td>
@@ -160,7 +160,7 @@ $totalPages = ceil($total / $perPage);
                         <td>
                             <a href="view_app.php?delete_log=<?= $log['id'] ?>&app_uuid=<?= escape($app_uuid) ?>"
                                onclick="return confirm('آیا از حذف این لاگ مطمئن هستید؟')"
-                               style="color: #ef4444;">
+                               style="color: #141c31;">
                                 <i class="fas fa-trash-alt"></i> حذف
                             </a>
                         </td>
@@ -172,11 +172,11 @@ $totalPages = ceil($total / $perPage);
             <!-- صفحه‌بندی -->
             <div class="pagination">
                 <?php if ($page > 1): ?>
-                    <a href="?app_uuid=<?= escape($app_uuid) ?>&page=<?= $page - 1 ?>&<?= http_build_query(array_filter(['tag'=>$tag,'message'=>$message,'device_id'=>$device,'log_uuid'=>$log_uuid,'from'=>$from,'to'=>$to])) ?>">قبلی</a>
+                    <a href="?app_uuid=<?= escape($app_uuid) ?>&page=<?= $page - 1 ?>&<?= http_build_query(array_filter(['tag'=>$tag,'message'=>$message,'client_identifier'=>$client,'log_uuid'=>$log_uuid,'from'=>$from,'to'=>$to])) ?>">قبلی</a>
                 <?php endif; ?>
                 <span>صفحه <?= $page ?> از <?= $totalPages ?></span>
                 <?php if ($page < $totalPages): ?>
-                    <a href="?app_uuid=<?= escape($app_uuid) ?>&page=<?= $page + 1 ?>&<?= http_build_query(array_filter(['tag'=>$tag,'message'=>$message,'device_id'=>$device,'log_uuid'=>$log_uuid,'from'=>$from,'to'=>$to])) ?>">بعدی</a>
+                    <a href="?app_uuid=<?= escape($app_uuid) ?>&page=<?= $page + 1 ?>&<?= http_build_query(array_filter(['tag'=>$tag,'message'=>$message,'client_identifier'=>$client,'log_uuid'=>$log_uuid,'from'=>$from,'to'=>$to])) ?>">بعدی</a>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

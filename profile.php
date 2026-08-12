@@ -85,7 +85,7 @@ $user = currentUser($pdo);
 </head>
 <body>
 <div class="container">
-    <h1>پروفایل <?= escape($user['username']) ?></h1>
+    <h2>پروفایل <?= escape($user['username']) ?></h2>
     <?php if ($error): ?>
         <div class="alert error"><?= escape($error) ?></div>
     <?php endif; ?>
@@ -96,7 +96,7 @@ $user = currentUser($pdo);
     <div class="profile-sections">
         <!-- تغییر نام کاربری -->
         <div class="section">
-            <h3>تغییر نام کاربری</h3>
+            <h4>تغییر نام کاربری</h4>
             <form method="post">
                 <input type="text" name="username" value="<?= escape($user['username']) ?>" required>
                 <button type="submit" name="update_username">به‌روزرسانی</button>
@@ -105,7 +105,7 @@ $user = currentUser($pdo);
 
         <!-- تغییر رمز عبور -->
         <div class="section">
-            <h3>تغییر رمز عبور</h3>
+            <h4>تغییر رمز عبور</h4>
             <form method="post">
                 <input type="password" name="old_password" placeholder="رمز فعلی" required>
                 <input type="password" name="new_password" placeholder="رمز جدید (حداقل ۶)" required>
@@ -116,7 +116,7 @@ $user = currentUser($pdo);
 
         <!-- تغییر ایمیل -->
         <div class="section">
-            <h3>تغییر ایمیل</h3>
+            <h4>تغییر ایمیل</h4>
             <form method="post">
                 <input type="email" name="email" value="<?= escape($user['email']) ?>">
                 <button type="submit" name="update_email">به‌روزرسانی</button>
