@@ -1,11 +1,11 @@
 <?php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'log_tracker');
+define('DB_NAME', 'log_stream');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
 //define('DB_HOST', 'sql307.infinityfree.com');
-//define('DB_NAME', 'if0_42441280_log_tracker');
+//define('DB_NAME', 'if0_42441280_log_stream');
 //define('DB_USER', 'if0_42441280');
 //define('DB_PASS', '12Uli0RBtr');
 

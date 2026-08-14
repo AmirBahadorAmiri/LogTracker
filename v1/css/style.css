@@ -71,12 +71,12 @@ header .nav a i {
 }
 .alert.error {
     background: #fee2e2;
-    color: white;
+    color: black;
     border-color: #ef4444;
 }
 .alert.success {
     background: #dcfce7;
-    color: white;
+    color: black;
     border-color: #22c55e;
 }
 

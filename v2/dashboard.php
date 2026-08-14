@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
         <h2>سلام <?= escape($_SESSION['username']) ?>!</h2>
         <nav class="nav">
             <a href="profile.php"><i class="fas fa-user-circle"></i> پروفایل</a>
-            <a href="../logout.php"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> خروج</a>
         </nav>
     </header>
 
