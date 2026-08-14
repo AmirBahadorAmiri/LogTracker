@@ -26,7 +26,7 @@ body {
 }
 
 /* ===== Headers & Titles ===== */
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-weight: 700;
     color: white;
     letter-spacing: -0.5px;
@@ -34,6 +34,7 @@ h1, h2, h3 {
 h1 { font-size: 2.2rem; margin-bottom: 10px; }
 h2 { font-size: 1.7rem; margin-bottom: 15px; border-right: 5px solid #3b82f6; padding-right: 15px; }
 h3 { font-size: 1.3rem; margin-bottom: 10px; }
+h4 { font-size: 1.0rem; margin-bottom: 10px; }
 
 /* ===== Header ===== */
 header {
@@ -388,7 +389,7 @@ table td a:hover {
 
 /* ===== Profile ===== */
 .profile-sections .section {
-    background: #f8fafc;
+    background: rgba(255,255,255,0.1);
     padding: 20px 25px;
     margin-bottom: 20px;
     border-radius: 16px;
