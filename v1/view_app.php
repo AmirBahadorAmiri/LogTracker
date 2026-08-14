@@ -1,5 +1,5 @@
 <?php
-require_once 'auth.php';
+require_once '../auth.php';
 
 $app_uuid = $_GET['app_uuid'] ?? '';
 if (!$app_uuid) {

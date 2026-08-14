@@ -1,5 +1,5 @@
 <?php
-require_once 'auth.php';
+require_once '../auth.php';
 
 // حذف اپ
 if (isset($_GET['delete'])) {

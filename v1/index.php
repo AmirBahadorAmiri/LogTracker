@@ -1,6 +1,6 @@
 <?php
-require_once 'config.php';
-require_once 'functions.php';
+require_once '../config.php';
+require_once '../functions.php';
 
 // اگر لاگین است، به داشبورد برود
 if (isLoggedIn()) {
@@ -92,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         <div class="captcha-box">
             <label>کد امنیتی <i class="fas fa-shield-alt"></i></label>
             <div class="captcha-row">
-                <img src="captcha.php" alt="کپچا" id="captcha_img" onclick="this.src='captcha.php?'+Math.random()">
+                <img src="../captcha.php" alt="کپچا" id="captcha_img" onclick="this.src='../captcha.php?'+Math.random()">
                 <input type="text" name="captcha_global" id="captcha_global" placeholder="کد را وارد کنید" required>
-                <button type="button" onclick="document.getElementById('captcha_img').src='captcha.php?'+Math.random(); document.getElementById('captcha_global').value='';">
+                <button type="button" onclick="document.getElementById('captcha_img').src='../captcha.php?'+Math.random(); document.getElementById('captcha_global').value='';">
                     <i class="fas fa-sync-alt"></i>
                 </button>
             </div>
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 <script>
     // وقتی صفحه بارگذاری می‌شود، کپچا را به‌روز کن
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('captcha_img').src = 'captcha.php?' + Math.random();
+        document.getElementById('captcha_img').src = '../captcha.php?' + Math.random();
     });
 </script>
 </body>

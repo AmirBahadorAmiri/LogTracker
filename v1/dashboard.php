@@ -1,6 +1,6 @@
 <?php
-require_once 'auth.php';
-require_once 'functions.php';
+require_once '../auth.php';
+require_once '../functions.php';
 
 // بررسی مجدد وجود کاربر در دیتابیس (احتیاط)
 $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ?");
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
         <h2>سلام <?= escape($_SESSION['username']) ?>!</h2>
         <div class="nav">
             <a href="profile.php">پروفایل</a>
-            <a href="logout.php">خروج</a>
+            <a href="../logout.php">خروج</a>
         </div>
     </header>
 

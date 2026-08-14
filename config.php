@@ -4,6 +4,11 @@ define('DB_NAME', 'log_tracker');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
+//define('DB_HOST', 'sql307.infinityfree.com');
+//define('DB_NAME', 'if0_42441280_log_tracker');
+//define('DB_USER', 'if0_42441280');
+//define('DB_PASS', '12Uli0RBtr');
+
 try {
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
