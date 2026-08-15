@@ -20,7 +20,6 @@ if (empty($app_uuid) || empty($message)) {
     exit;
 }
 
-// بررسی وجود اپ
 $stmt = $pdo->prepare("SELECT id FROM apps WHERE app_uuid = ?");
 $stmt->execute([$app_uuid]);
 $app = $stmt->fetch();
@@ -30,11 +29,9 @@ if (!$app) {
     exit;
 }
 
-// تولید log_uuid و دریافت IP
 $log_uuid = generateUUID();
 $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
-// درج لاگ
 $stmt = $pdo->prepare("INSERT INTO logs (app_id, log_uuid, client_identifier, tag, message, ip_address) VALUES (?, ?, ?, ?, ?, ?)");
 $stmt->execute([$app['id'], $log_uuid, $client_identifier, $tag, $message, $ip]);
 

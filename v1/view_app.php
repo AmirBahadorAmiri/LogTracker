@@ -6,7 +6,6 @@ if (!$app_uuid) {
     redirect('dashboard.php');
 }
 
-// بررسی دسترسی به اپ
 $stmt = $pdo->prepare("SELECT * FROM apps WHERE app_uuid = ? AND user_id = ?");
 $stmt->execute([$app_uuid, $_SESSION['user_id']]);
 $app = $stmt->fetch();
@@ -14,29 +13,20 @@ if (!$app) {
     redirect('dashboard.php');
 }
 
-// =============================================
-// ✅ بخش حذف لاگ (اضافه شده)
-// =============================================
 if (isset($_GET['delete_log'])) {
     $log_id = (int)$_GET['delete_log'];
 
-    // اطمینان از اینکه این لاگ متعلق به همین اپلیکیشن است (امنیت)
     $check_stmt = $pdo->prepare("SELECT id FROM logs WHERE id = ? AND app_id = ?");
     $check_stmt->execute([$log_id, $app['id']]);
 
     if ($check_stmt->rowCount() > 0) {
-        // حذف لاگ از دیتابیس
         $del_stmt = $pdo->prepare("DELETE FROM logs WHERE id = ?");
         $del_stmt->execute([$log_id]);
     }
 
-    // پس از حذف، کاربر را به همان صفحه برمی‌گردانیم (رفرش می‌کنیم)
-    // این کار از ارسال مجدد درخواست با رفرش صفحه جلوگیری می‌کند
     redirect("view_app.php?app_uuid=" . urlencode($app_uuid));
 }
-// =============================================
 
-// دریافت پارامترهای فیلتر
 $tag = $_GET['tag'] ?? '';
 $message = $_GET['message'] ?? '';
 $client = $_GET['client_identifier'] ?? '';
@@ -47,7 +37,6 @@ $page = (int)($_GET['page'] ?? 1);
 $perPage = 100;
 $offset = ($page - 1) * $perPage;
 
-// ساخت کوئری شرطی برای دریافت لاگ‌ها
 $sql = "SELECT * FROM logs WHERE app_id = ?";
 $params = [$app['id']];
 
@@ -76,13 +65,11 @@ if ($to) {
     $params[] = $to . ' 23:59:59';
 }
 
-// شمارش کل رکوردها
 $countSql = str_replace("SELECT *", "SELECT COUNT(*)", $sql);
 $countStmt = $pdo->prepare($countSql);
 $countStmt->execute($params);
 $total = $countStmt->fetchColumn();
 
-// کوئری اصلی با ORDER و LIMIT
 $sql .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
 $stmt = $pdo->prepare($sql);
 
@@ -116,7 +103,6 @@ $totalPages = ceil($total / $perPage);
         </div>
     </header>
 
-    <!-- فرم فیلتر -->
     <section class="filters">
         <form method="get">
             <input type="hidden" name="app_uuid" value="<?= escape($app_uuid) ?>">
@@ -131,7 +117,6 @@ $totalPages = ceil($total / $perPage);
         </form>
     </section>
 
-    <!-- نمایش لاگ‌ها -->
     <section class="logs">
         <?php if (empty($logs)): ?>
             <p><i class="fas fa-info-circle"></i> هیچ لاگی یافت نشد.</p>
@@ -169,7 +154,6 @@ $totalPages = ceil($total / $perPage);
                 </tbody>
             </table>
 
-            <!-- صفحه‌بندی -->
             <div class="pagination">
                 <?php if ($page > 1): ?>
                     <a href="?app_uuid=<?= escape($app_uuid) ?>&page=<?= $page - 1 ?>&<?= http_build_query(array_filter(['tag'=>$tag,'message'=>$message,'client_identifier'=>$client,'log_uuid'=>$log_uuid,'from'=>$from,'to'=>$to])) ?>">قبلی</a>

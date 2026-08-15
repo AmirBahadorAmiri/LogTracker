@@ -2,21 +2,17 @@
 require_once '../auth.php';
 require_once '../functions.php';
 
-// بررسی مجدد وجود کاربر در دیتابیس (احتیاط)
 $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 if (!$stmt->fetch()) {
-    // کاربر وجود ندارد → لاگ‌اوت کن
     session_destroy();
     redirect('index.php');
 }
 
-// دریافت لیست اپ‌های کاربر
 $stmt = $pdo->prepare("SELECT * FROM apps WHERE user_id = ? ORDER BY created_at DESC");
 $stmt->execute([$_SESSION['user_id']]);
 $apps = $stmt->fetchAll();
 
-// پردازش افزودن اپ جدید
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
     $app_name = trim($_POST['app_name']);
     if (!empty($app_name)) {
@@ -26,13 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_app'])) {
             $stmt->execute([$_SESSION['user_id'], $uuid, $app_name]);
             redirect('dashboard.php');
         } catch (PDOException $e) {
-            // اگر خطای foreign key بود، پیام بده
             if ($e->errorInfo[1] == 1452) {
                 $error = 'کاربر نامعتبر. لطفاً دوباره وارد شوید.';
                 session_destroy();
                 redirect('index.php');
             } else {
-                throw $e; // خطای دیگر
+                throw $e;
             }
         }
     }

@@ -5,7 +5,6 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // تغییر نام کاربری
     if (isset($_POST['update_username'])) {
         $new_username = trim($_POST['username']);
         if (strlen($new_username) >= 3) {
@@ -26,13 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // تغییر رمز عبور
     if (isset($_POST['update_password'])) {
         $old = $_POST['old_password'];
         $new = $_POST['new_password'];
         $confirm = $_POST['confirm_password'];
 
-        // بررسی رمز فعلی
         $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
         $stmt->execute([$_SESSION['user_id']]);
         $row = $stmt->fetch();
@@ -50,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // تغییر ایمیل
     if (isset($_POST['update_email'])) {
         $new_email = trim($_POST['email']);
         if (filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
@@ -71,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// دریافت اطلاعات مجدد برای نمایش
 $user = currentUser($pdo);
 ?>
 <!DOCTYPE html>
@@ -94,7 +89,6 @@ $user = currentUser($pdo);
     <?php endif; ?>
 
     <div class="profile-sections">
-        <!-- تغییر نام کاربری -->
         <div class="section">
             <h4>تغییر نام کاربری</h4>
             <form method="post">
@@ -103,7 +97,6 @@ $user = currentUser($pdo);
             </form>
         </div>
 
-        <!-- تغییر رمز عبور -->
         <div class="section">
             <h4>تغییر رمز عبور</h4>
             <form method="post">
@@ -114,7 +107,6 @@ $user = currentUser($pdo);
             </form>
         </div>
 
-        <!-- تغییر ایمیل -->
         <div class="section">
             <h4>تغییر ایمیل</h4>
             <form method="post">

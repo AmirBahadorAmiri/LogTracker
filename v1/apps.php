@@ -1,10 +1,8 @@
 <?php
 require_once '../auth.php';
 
-// حذف اپ
 if (isset($_GET['delete'])) {
     $app_id = (int)$_GET['delete'];
-    // بررسی مالکیت
     $stmt = $pdo->prepare("SELECT * FROM apps WHERE id = ? AND user_id = ?");
     $stmt->execute([$app_id, $_SESSION['user_id']]);
     if ($stmt->rowCount()) {
@@ -14,7 +12,6 @@ if (isset($_GET['delete'])) {
     redirect('dashboard.php');
 }
 
-// ویرایش اپ
 if (isset($_GET['edit'])) {
     $app_id = (int)$_GET['edit'];
     $stmt = $pdo->prepare("SELECT * FROM apps WHERE id = ? AND user_id = ?");

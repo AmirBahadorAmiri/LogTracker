@@ -1,8 +1,6 @@
 <?php
-// توابع کمکی
-
 function generateUUID() {
-    return bin2hex(random_bytes(16)); // 32 کاراکتر هگز
+    return bin2hex(random_bytes(16));
 }
 
 function generateCSRFToken() {
@@ -25,12 +23,10 @@ function escape($html) {
     return htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
 }
 
-// بررسی ورود کاربر
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
 }
 
-// دریافت اطلاعات کاربر جاری
 function currentUser($pdo) {
     if (!isLoggedIn()) return null;
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");

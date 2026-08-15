@@ -2,7 +2,6 @@
 require_once '../config.php';
 require_once '../functions.php';
 
-// اگر لاگین است، به داشبورد برود
 if (isLoggedIn()) {
     redirect('dashboard.php');
 }
@@ -10,17 +9,15 @@ if (isLoggedIn()) {
 $error = '';
 $success = '';
 
-// پردازش ثبت‌نام
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
     $email = trim($_POST['email']);
     $captcha = $_POST['captcha'];
 
-    // بررسی وجود کپچا در سشن
     if (!isset($_SESSION['captcha']) || $captcha != $_SESSION['captcha']) {
         $error = 'کد امنیتی اشتباه است';
-        unset($_SESSION['captcha']); // پاک کردن کپچا
+        unset($_SESSION['captcha']);
     } elseif (strlen($username) < 3 || strlen($password) < 6) {
         $error = 'نام کاربری حداقل ۳ کاراکتر و رمز حداقل ۶ کاراکتر باشد';
         unset($_SESSION['captcha']);
@@ -30,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             $stmt = $pdo->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
             $stmt->execute([$username, $hashed, $email]);
             $success = 'ثبت‌نام موفق، اکنون وارد شوید';
-            unset($_SESSION['captcha']); // پاک کردن کپچا بعد از موفقیت
+            unset($_SESSION['captcha']);
         } catch (PDOException $e) {
             if ($e->errorInfo[1] == 1062) {
                 $error = 'نام کاربری یا ایمیل قبلاً ثبت شده است';
@@ -42,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 }
 
-// پردازش ورود
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
@@ -58,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            unset($_SESSION['captcha']); // پاک کردن کپچا بعد از موفقیت
+            unset($_SESSION['captcha']);
             redirect('dashboard.php');
         } else {
             $error = 'نام کاربری یا رمز اشتباه است';
@@ -87,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         <div class="alert success"><?= escape($success) ?></div>
     <?php endif; ?>
 
-    <!-- کپچای یکتا برای کل صفحه -->
     <div class="captcha-wrapper">
         <div class="captcha-box">
             <label>کد امنیتی <i class="fas fa-shield-alt"></i></label>
@@ -102,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     </div>
 
     <div class="forms">
-        <!-- فرم ورود -->
         <div class="form-box">
             <h3><i class="fas fa-sign-in-alt"></i> ورود</h3>
             <form method="post" onsubmit="document.getElementById('login_captcha').value = document.getElementById('captcha_global').value;">
@@ -113,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             </form>
         </div>
 
-        <!-- فرم ثبت‌نام -->
         <div class="form-box">
             <h3><i class="fas fa-user-plus"></i> ثبت‌نام</h3>
             <form method="post" onsubmit="document.getElementById('register_captcha').value = document.getElementById('captcha_global').value;">
@@ -128,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 </div>
 
 <script>
-    // وقتی صفحه بارگذاری می‌شود، کپچا را به‌روز کن
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('captcha_img').src = '../captcha.php?' + Math.random();
     });

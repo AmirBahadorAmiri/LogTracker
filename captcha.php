@@ -13,7 +13,6 @@ $textColor = imagecolorallocate($image, 0, 0, 0);
 $code = rand(1000, 9999);
 $_SESSION['captcha'] = $code;
 
-// خطوط نویز
 for ($i = 0; $i < 5; $i++) {
     $color = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
     imageline($image, rand(0, $width), rand(0, $height), rand(0, $width), rand(0, $height), $color);

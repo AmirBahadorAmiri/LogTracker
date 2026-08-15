@@ -5,7 +5,6 @@ $error = '';
 $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // تغییر نام کاربری
     if (isset($_POST['update_username'])) {
         $new_username = trim($_POST['username']);
         if (strlen($new_username) >= 3) {
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // تغییر رمز عبور
     if (isset($_POST['update_password'])) {
         $old = $_POST['old_password'];
         $new = $_POST['new_password'];
@@ -50,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // تغییر ایمیل
     if (isset($_POST['update_email'])) {
         $new_email = trim($_POST['email']);
         if (empty($new_email) || filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
@@ -69,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'فرمت ایمیل وارد شده نامعتبر است.';
         }
     }
-    // Refresh user data after updates
     $user = currentUser($pdo);
 }
 ?>
@@ -100,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <div class="profile-sections">
-        <!-- تغییر نام کاربری -->
         <section class="profile-section">
             <h4><i class="fas fa-user"></i> تغییر نام کاربری</h4>
             <form method="post">
@@ -109,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
 
-        <!-- تغییر ایمیل -->
         <section class="profile-section">
             <h4><i class="fas fa-envelope"></i> تغییر ایمیل</h4>
             <form method="post">
@@ -118,7 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
 
-        <!-- تغییر رمز عبور -->
         <section class="profile-section password-form">
             <h4><i class="fas fa-key"></i> تغییر رمز عبور</h4>
             <form method="post">

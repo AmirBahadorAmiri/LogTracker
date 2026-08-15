@@ -1,25 +1,20 @@
 <?php
 require_once '../auth.php';
 
-// حذف اپ
 if (isset($_GET['delete'])) {
     $app_id = (int)$_GET['delete'];
-    // بررسی مالکیت
     $stmt = $pdo->prepare("SELECT id FROM apps WHERE id = ? AND user_id = ?");
     $stmt->execute([$app_id, $_SESSION['user_id']]);
     if ($stmt->rowCount() > 0) {
-        // اول لاگ‌های مربوط به این اپ را حذف می‌کنیم (به خاطر محدودیت foreign key)
         $log_del_stmt = $pdo->prepare("DELETE FROM logs WHERE app_id = ?");
         $log_del_stmt->execute([$app_id]);
         
-        // سپس خود اپ را حذف می‌کنیم
         $app_del_stmt = $pdo->prepare("DELETE FROM apps WHERE id = ?");
         $app_del_stmt->execute([$app_id]);
     }
     redirect('dashboard.php');
 }
 
-// ویرایش اپ
 if (isset($_GET['edit'])) {
     $app_id = (int)$_GET['edit'];
     $stmt = $pdo->prepare("SELECT * FROM apps WHERE id = ? AND user_id = ?");
@@ -38,7 +33,6 @@ if (isset($_GET['edit'])) {
             $stmt = $pdo->prepare("UPDATE apps SET app_name = ? WHERE id = ?");
             $stmt->execute([$new_name, $app_id]);
             $success = 'نام اپلیکیشن با موفقیت به‌روز شد.';
-            // Refresh app data
             $app['app_name'] = $new_name;
         } else {
             $error = 'نام اپلیکیشن نمی‌تواند خالی باشد.';
@@ -85,6 +79,5 @@ if (isset($_GET['edit'])) {
     exit;
 }
 
-// اگر هیچ پارامتری نبود، به داشبورد برگرد
 redirect('dashboard.php');
 ?>

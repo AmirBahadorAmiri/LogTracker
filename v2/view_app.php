@@ -6,7 +6,6 @@ if (!$app_uuid) {
     redirect('dashboard.php');
 }
 
-// بررسی دسترسی به اپ
 $stmt = $pdo->prepare("SELECT * FROM apps WHERE app_uuid = ? AND user_id = ?");
 $stmt->execute([$app_uuid, $_SESSION['user_id']]);
 $app = $stmt->fetch();
@@ -14,7 +13,6 @@ if (!$app) {
     redirect('dashboard.php');
 }
 
-// حذف لاگ
 if (isset($_GET['delete_log'])) {
     $log_id = (int)$_GET['delete_log'];
     $check_stmt = $pdo->prepare("SELECT id FROM logs WHERE id = ? AND app_id = ?");
@@ -23,7 +21,6 @@ if (isset($_GET['delete_log'])) {
         $del_stmt = $pdo->prepare("DELETE FROM logs WHERE id = ?");
         $del_stmt->execute([$log_id]);
     }
-    // Redirect to clean URL
     $redirect_url = "view_app.php?app_uuid=" . urlencode($app_uuid);
     $query_params = $_GET;
     unset($query_params['delete_log']);
@@ -33,7 +30,6 @@ if (isset($_GET['delete_log'])) {
     redirect($redirect_url);
 }
 
-// فیلترها و صفحه‌بندی
 $tag = $_GET['tag'] ?? '';
 $message = $_GET['message'] ?? '';
 $client = $_GET['client_identifier'] ?? '';
@@ -41,7 +37,7 @@ $log_uuid = $_GET['log_uuid'] ?? '';
 $from = $_GET['from'] ?? '';
 $to = $_GET['to'] ?? '';
 $page = (int)($_GET['page'] ?? 1);
-$perPage = 50; // تعداد کمتر برای خوانایی بهتر
+$perPage = 50;
 $offset = ($page - 1) * $perPage;
 
 $sql = "SELECT * FROM logs WHERE app_id = ?";
