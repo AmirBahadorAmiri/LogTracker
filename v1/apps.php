@@ -42,10 +42,11 @@ if (isset($_GET['edit'])) {
     <body>
     <div class="container">
         <h1>ویرایش اپلیکیشن</h1>
+        <br>    
         <form method="post">
             <input type="text" name="app_name" value="<?= escape($app['app_name']) ?>" required>
-            <button type="submit" name="update_app">ذخیره</button>
-            <a href="dashboard.php">بازگشت</a>
+            <button type="submit" name="update_app" style="margin-right: 16px;">ذخیره</button>
+            <a href="dashboard.php" style="margin-right: 16px;">بازگشت</a>
         </form>
     </div>
     </body>

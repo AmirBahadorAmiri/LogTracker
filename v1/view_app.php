@@ -144,8 +144,7 @@ $totalPages = ceil($total / $perPage);
                         <td><?= escape($log['created_at']) ?></td>
                         <td>
                             <a href="view_app.php?delete_log=<?= $log['id'] ?>&app_uuid=<?= escape($app_uuid) ?>"
-                               onclick="return confirm('آیا از حذف این لاگ مطمئن هستید؟')"
-                               style="color: #141c31;">
+                               onclick="return confirm('آیا از حذف این لاگ مطمئن هستید؟')">
                                 <i class="fas fa-trash-alt"></i> حذف
                             </a>
                         </td>
