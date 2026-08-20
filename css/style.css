@@ -1,0 +1,21 @@
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    padding-top: 56px;
+}
+
+.log-message {
+    max-width: 400px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 0.875rem;
+}
+
+.text-monospace {
+    font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 700;
+}
